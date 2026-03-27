@@ -1,0 +1,65 @@
+<div class="pricing-page">
+
+    <nav class="pricing-nav">
+        <a class="logo" (click)="goHome()">PRONO<span>MASTER</span></a>
+        @if (isVip) {
+        <span class="vip-badge">VIP</span>
+        }
+    </nav>
+
+    <div class="pricing-hero">
+        <div class="pricing-tag">Accès exclusif</div>
+        <h1>CHOISIR SON <em>ACCÈS</em></h1>
+        <p>Rejoins la communauté PronoMaster et accède aux analyses exclusives</p>
+    </div>
+
+    <div class="cards-grid">
+
+        <!-- GRATUIT -->
+        <div class="plan-card">
+            <div class="plan-name">Gratuit</div>
+            <div class="plan-price">0€ <span>/ toujours</span></div>
+            <div class="plan-desc">L'essentiel pour suivre les pronostics publics.</div>
+            <div class="features">
+                <div class="feature yes">Accès aux pronostics publics</div>
+                <div class="feature yes">Classement des tipsters</div>
+                <div class="feature yes">Stats globales de réussite</div>
+                <div class="feature no">Pronos du jour</div>
+                <div class="feature no">Débriefs & analyses détaillées</div>
+                <div class="feature no">Historique complet des stats</div>
+            </div>
+            <button class="plan-btn btn-free" (click)="goHome()">
+                {{ isLoggedIn ? 'RETOUR AU SITE' : 'COMMENCER GRATUITEMENT' }}
+            </button>
+        </div>
+
+        <!-- VIP -->
+        <div class="plan-card plan-vip">
+            <div class="plan-badge">SUR INVITATION</div>
+            <div class="plan-name">VIP</div>
+            <div class="plan-price">— <span>/ accès privé</span></div>
+            <div class="plan-desc">Accès complet réservé aux membres invités par l'admin.</div>
+            <div class="features">
+                <div class="feature yes">Tout le plan Gratuit inclus</div>
+                <div class="feature yes">Pronos du jour en avant-première</div>
+                <div class="feature yes">Débriefs & analyses détaillées</div>
+                <div class="feature yes">Historique complet des stats</div>
+                <div class="feature yes">Accès prioritaire aux nouveautés</div>
+                <div class="feature yes">Badge VIP sur ton profil</div>
+            </div>
+            @if (isVip) {
+            <button class="plan-btn btn-vip" (click)="goHome()">ACCÈS ACTIF ✓</button>
+            } @else if (requested) {
+            <button class="plan-btn btn-requested" disabled>DEMANDE ENVOYÉE ✓</button>
+            } @else {
+            <button class="plan-btn btn-vip" (click)="requestAccess()">DEMANDER L'ACCÈS</button>
+            }
+        </div>
+
+    </div>
+
+    <div class="pricing-note">
+        L'accès VIP est attribué manuellement par <span>l'admin</span>. Tu recevras un email de confirmation.
+    </div>
+
+</div>

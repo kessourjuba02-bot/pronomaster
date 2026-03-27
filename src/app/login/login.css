@@ -1,0 +1,438 @@
+.login-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    background: #0A0A0A;
+    color: #F0EDE6;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.login-left {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.login-right {
+    padding: 3rem 2.5rem;
+    background: #0D0D0D;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: #E8B832;
+    margin-bottom: .2rem;
+}
+
+.login-logo span {
+    color: #F0EDE6;
+}
+
+.login-tagline {
+    font-size: 12px;
+    color: #444;
+    margin-bottom: 2.5rem;
+    letter-spacing: .5px;
+}
+
+.login-tabs {
+    display: flex;
+    margin-bottom: 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    color: #555;
+    background: transparent;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.tab.active {
+    background: #C9971A;
+    color: #000;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+input {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #F0EDE6;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color .2s;
+    width: 100%;
+}
+
+input:focus {
+    border-color: #C9971A;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 6px;
+    padding: 13px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    background: #C9971A;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: #E8B832;
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.toggle-mode {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 12px;
+    color: #555;
+}
+
+.toggle-mode a {
+    color: #E8B832;
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+.toggle-mode a:hover {
+    text-decoration: underline;
+}
+
+.selected-plan-info {
+    margin-top: 1rem;
+    padding: 10px 14px;
+    background: rgba(200, 150, 26, 0.08);
+    border: 1px solid rgba(200, 150, 26, 0.25);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.selected-plan-info span {
+    color: #E8B832;
+    font-weight: 600;
+}
+
+.alert {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 1rem;
+}
+
+.alert-error {
+    background: rgba(232, 64, 64, 0.1);
+    color: #E84040;
+    border: 1px solid rgba(232, 64, 64, 0.2);
+}
+
+.alert-success {
+    background: rgba(29, 185, 84, 0.1);
+    color: #1DB954;
+    border: 1px solid rgba(29, 185, 84, 0.2);
+}
+
+.plans-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #C9971A;
+    margin-bottom: .5rem;
+}
+
+.plans-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: .5rem;
+}
+
+.plans-title em {
+    color: #E8B832;
+    font-style: normal;
+}
+
+.plans-sub {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.plan-card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.plan-card:hover {
+    border-color: rgba(200, 150, 26, 0.4);
+    transform: translateY(-2px);
+}
+
+.plan-card.plan-featured {
+    border: 2px solid #C9971A;
+}
+
+.plan-card.plan-annual {
+    border: 1px solid rgba(29, 185, 84, 0.3);
+}
+
+.plan-card.plan-selected {
+    border: 2px solid #E8B832 !important;
+    background: rgba(200, 150, 26, 0.06);
+}
+
+.plan-select-ring {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    transition: all .2s;
+}
+
+.plan-selected .plan-select-ring {
+    background: #E8B832;
+    border-color: #E8B832;
+}
+
+.plan-selected .plan-select-ring::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: #000;
+    font-weight: 700;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #C9971A;
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.plan-badge-annual {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1DB954;
+    color: #000;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.plan-period {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+    margin-bottom: .5rem;
+}
+
+.plan-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: .4rem;
+}
+
+.plan-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: #E8B832;
+}
+
+.plan-freq {
+    font-size: 11px;
+    color: #555;
+}
+
+.plan-saving {
+    font-size: 11px;
+    color: #1DB954;
+    margin-bottom: .5rem;
+}
+
+.plan-desc {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: .75rem;
+    line-height: 1.4;
+}
+
+.plan-feats {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 1rem;
+}
+
+.feat {
+    font-size: 11px;
+    color: #F0EDE6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.feat::before {
+    content: '✓';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: rgba(29, 185, 84, 0.15);
+    color: #1DB954;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plan-select-btn {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: all .2s;
+    background: rgba(255, 255, 255, 0.05);
+    color: #666;
+}
+
+.plan-selected .plan-select-btn {
+    background: rgba(200, 150, 26, 0.15);
+    color: #E8B832;
+}
+
+.plans-note {
+    font-size: 11px;
+    color: #444;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.plans-note span {
+    color: #E8B832;
+}
+
+@media (max-width: 900px) {
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .login-right {
+        padding: 2rem 1.5rem;
+    }
+
+    .plans-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .login-left {
+        padding: 2rem 1.5rem;
+    }
+}

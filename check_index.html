@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en"><head>
+  <script type="module" src="/@vite/client"></script>
+
+  <meta charset="utf-8">
+  <title>Prono</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css"><style ng-app-id="ng">
+.login-page[_ngcontent-ng-c3567700584] {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0A0A0A;
+  padding: 2rem;
+}
+.login-page[_ngcontent-ng-c3567700584]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 50% 50% at 50% 40%,
+      rgba(200, 150, 26, 0.07) 0%,
+      transparent 70%);
+  pointer-events: none;
+}
+.login-card[_ngcontent-ng-c3567700584] {
+  width: 100%;
+  max-width: 400px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  z-index: 10;
+}
+.login-logo[_ngcontent-ng-c3567700584] {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: #E8B832;
+  text-align: center;
+  margin-bottom: .25rem;
+}
+.login-logo[_ngcontent-ng-c3567700584]   span[_ngcontent-ng-c3567700584] {
+  color: #F0EDE6;
+}
+.login-sub[_ngcontent-ng-c3567700584] {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.form-group[_ngcontent-ng-c3567700584] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+label[_ngcontent-ng-c3567700584] {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+input[_ngcontent-ng-c3567700584] {
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: #F0EDE6;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+}
+input[_ngcontent-ng-c3567700584]:focus {
+  border-color: #C9971A;
+}
+.submit-btn[_ngcontent-ng-c3567700584] {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  background: #C9971A;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.submit-btn[_ngcontent-ng-c3567700584]:hover:not(:disabled) {
+  background: #E8B832;
+  transform: translateY(-1px);
+}
+.submit-btn[_ngcontent-ng-c3567700584]:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.spinner[_ngcontent-ng-c3567700584] {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: _ngcontent-ng-c3567700584_spin .7s linear infinite;
+}
+@keyframes _ngcontent-ng-c3567700584_spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.toggle-mode[_ngcontent-ng-c3567700584] {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 13px;
+  color: #666;
+}
+.toggle-mode[_ngcontent-ng-c3567700584]   a[_ngcontent-ng-c3567700584] {
+  color: #E8B832;
+  cursor: pointer;
+  margin-left: 4px;
+  text-decoration: none;
+}
+.toggle-mode[_ngcontent-ng-c3567700584]   a[_ngcontent-ng-c3567700584]:hover {
+  text-decoration: underline;
+}
+.alert[_ngcontent-ng-c3567700584] {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 1rem;
+}
+.alert-error[_ngcontent-ng-c3567700584] {
+  background: rgba(232, 64, 64, 0.1);
+  color: #E84040;
+  border: 1px solid rgba(232, 64, 64, 0.2);
+}
+.alert-success[_ngcontent-ng-c3567700584] {
+  background: rgba(29, 185, 84, 0.1);
+  color: #1DB954;
+  border: 1px solid rgba(29, 185, 84, 0.2);
+}
+/*# sourceMappingURL=/login.css.map */</style></head>
+<body><!--nghm-->
+  <app-shell ng-version="21.2.6" ngh="1" ng-server-context="ssg"><router-outlet></router-outlet><app-login _nghost-ng-c3567700584="" ngh="0"><div _ngcontent-ng-c3567700584="" class="login-page"><div _ngcontent-ng-c3567700584="" class="login-card"><div _ngcontent-ng-c3567700584="" class="login-logo">PRONO<span _ngcontent-ng-c3567700584="">MASTER</span></div><div _ngcontent-ng-c3567700584="" class="login-sub">Bienvenue, connectez-vous</div><!--container--><!--container--><div _ngcontent-ng-c3567700584="" class="form-group"><label _ngcontent-ng-c3567700584="">Adresse email</label><input _ngcontent-ng-c3567700584="" type="email" placeholder="exemple@email.com" value="" class="ng-untouched ng-pristine ng-valid"></div><div _ngcontent-ng-c3567700584="" class="form-group"><label _ngcontent-ng-c3567700584="">Mot de passe</label><input _ngcontent-ng-c3567700584="" type="password" placeholder="••••••••" value="" class="ng-untouched ng-pristine ng-valid"></div><!--container--><button _ngcontent-ng-c3567700584="" class="submit-btn"><!--container--> SE CONNECTER </button><div _ngcontent-ng-c3567700584="" class="toggle-mode"> Pas de compte ? <a _ngcontent-ng-c3567700584="">S'inscrire</a></div></div></div></app-login><!--container--></app-shell>
+<script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script>
+
+<script id="ng-state" type="application/json">{"__nghData__":[{"t":{"8":"t0","9":"t1","18":"t2","20":"t3"},"c":{"8":[],"9":[],"18":[],"20":[]}},{"c":{"0":[{"i":"c3567700584","r":1}]}}]}</script></body></html>

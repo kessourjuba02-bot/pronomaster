@@ -1,0 +1,313 @@
+<nav>
+  <a class="logo" href="#">JTM<span>ASTER</span></a>
+  <div class="nav-center">
+    <button class="nav-tab" [class.active]="view==='pronos'" (click)="setView('pronos')">Pronostics</button>
+    <button class="nav-tab" [class.active]="view==='historique'" (click)="setView('historique')">Historique</button>
+  </div>
+  <div class="nav-right">
+    <span class="nav-user">{{ userEmail }}</span>
+    @if (isVip && !isAdmin) { <span class="nav-vip-badge">VIP</span> }
+    @if (isAdmin) { <span class="nav-admin-badge">ADMIN</span> }
+    @if (!isVip) { <button class="nav-upgrade" (click)="goPricing()">Accès VIP</button> }
+    <button class="nav-logout" (click)="logout()">Déconnexion</button>
+  </div>
+</nav>
+
+<div class="stats-bar">
+  <div class="hero-stats">
+    <div class="h-stat">
+      <div class="val">{{ winRate }}%</div>
+      <div class="lbl">Win rate</div>
+    </div>
+    <div class="h-stat">
+      <div class="val">+{{ units }}</div>
+      <div class="lbl">Unités</div>
+    </div>
+    <div class="h-stat">
+      <div class="val">{{ activePronos.length }}</div>
+      <div class="lbl">En cours</div>
+    </div>
+    <div class="h-stat">
+      <div class="val">{{ streak }}{{ streak > 0 ? ' 🔥' : '' }}</div>
+      <div class="lbl">Série</div>
+    </div>
+  </div>
+</div>
+
+<div class="filters-bar">
+  <div class="sport-filters">
+    <button class="filter" [class.active]="currentFilter==='all'" (click)="setFilter('all')">Tous</button>
+    <button class="filter" [class.active]="currentFilter==='foot'" (click)="setFilter('foot')">⚽ Football</button>
+    <button class="filter" [class.active]="currentFilter==='basket'" (click)="setFilter('basket')">🏀 Basket</button>
+    <button class="filter" [class.active]="currentFilter==='tennis'" (click)="setFilter('tennis')">🎾 Tennis</button>
+    <button class="filter" [class.active]="currentFilter==='other'" (click)="setFilter('other')">🏒 Autres</button>
+  </div>
+  @if (isAdmin) {
+  <div class="admin-btns">
+    <button class="btn-add-prono" (click)="openForm('single')">+ Prono</button>
+    <button class="btn-add-combi" (click)="openForm('combi')">+ Combiné</button>
+  </div>
+  }
+</div>
+
+<!-- FORMULAIRE PRONO SIMPLE -->
+@if (isAdmin && showForm === 'single') {
+<div class="admin-form-bar">
+  <div class="admin-form-inner">
+    <div class="form-title">Nouveau pronostic</div>
+    <div class="form-row">
+      <div class="form-group"><label>Match</label><input type="text" [(ngModel)]="form.match"
+          placeholder="PSG vs Marseille"></div>
+      <div class="form-group"><label>Compétition · Heure</label><input type="text" [(ngModel)]="form.comp"
+          placeholder="Ligue 1 · 20h45"></div>
+      <div class="form-group"><label>Sport</label>
+        <select [(ngModel)]="form.sport">
+          <option value="foot">⚽ Football</option>
+          <option value="basket">🏀 Basketball</option>
+          <option value="tennis">🎾 Tennis</option>
+          <option value="other">🏒 Autre</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Pronostic</label><input type="text" [(ngModel)]="form.tip" placeholder="PSG gagne">
+      </div>
+      <div class="form-group"><label>Cote</label><input type="number" [(ngModel)]="form.cote" placeholder="1.85"
+          step="0.01" min="1"></div>
+      <div class="form-group"><label>Niveau</label>
+        <select [(ngModel)]="form.tipster">
+          <option value="SAFE">SAFE</option>
+          <option value="VALUE">VALUE</option>
+          <option value="RISK">RISK</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row-bottom">
+      <textarea [(ngModel)]="form.analysis" placeholder="Analyse (optionnel)..."></textarea>
+      <label class="vip-check"><input type="checkbox" [(ngModel)]="form.vip_only"> VIP uniquement</label>
+      <button class="submit-btn" (click)="addProno()">PUBLIER</button>
+    </div>
+  </div>
+</div>
+}
+
+<!-- FORMULAIRE COMBINÉ -->
+@if (isAdmin && showForm === 'combi') {
+<div class="admin-form-bar">
+  <div class="admin-form-inner">
+    <div class="form-title">Nouveau combiné</div>
+
+    @for (leg of combiLegs; track $index; let i = $index) {
+    <div class="combi-leg">
+      <div class="leg-num">{{ i + 1 }}</div>
+      <div class="leg-fields">
+        <div class="form-row">
+          <div class="form-group"><label>Match</label><input type="text" [(ngModel)]="leg.match"
+              placeholder="PSG vs Marseille"></div>
+          <div class="form-group"><label>Compétition</label><input type="text" [(ngModel)]="leg.comp"
+              placeholder="Ligue 1 · 20h45"></div>
+          <div class="form-group"><label>Sport</label>
+            <select [(ngModel)]="leg.sport">
+              <option value="foot">⚽ Football</option>
+              <option value="basket">🏀 Basketball</option>
+              <option value="tennis">🎾 Tennis</option>
+              <option value="other">🏒 Autre</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Pronostic</label><input type="text" [(ngModel)]="leg.tip"
+              placeholder="PSG gagne"></div>
+          <div class="form-group"><label>Cote</label><input type="number" [(ngModel)]="leg.cote" placeholder="1.50"
+              step="0.01" min="1" (ngModelChange)="calcCombiCote()"></div>
+        </div>
+      </div>
+      @if (combiLegs.length > 2) {
+      <button class="btn-remove-leg" (click)="removeLeg(i)" title="Supprimer">✕</button>
+      }
+    </div>
+    @if (i < combiLegs.length - 1) { <div class="leg-separator">×
+  </div> }
+  }
+
+  <div class="combi-actions">
+    <button class="btn-add-leg" (click)="addLeg()">+ Ajouter un match</button>
+    <div class="combi-total">
+      Cote totale : <strong>{{ combiTotalCote | number:'1.2-2' }}</strong>
+    </div>
+  </div>
+
+  <div class="form-row-bottom" style="margin-top:12px">
+    <div class="form-group" style="flex:1">
+      <label>Niveau</label>
+      <select [(ngModel)]="combiForm.tipster">
+        <option value="SAFE">SAFE</option>
+        <option value="VALUE">VALUE</option>
+        <option value="RISK">RISK</option>
+      </select>
+    </div>
+    <textarea [(ngModel)]="combiForm.analysis" placeholder="Analyse du combiné (optionnel)..."></textarea>
+    <label class="vip-check"><input type="checkbox" [(ngModel)]="combiForm.vip_only"> VIP uniquement</label>
+    <button class="submit-btn submit-combi" (click)="addCombi()">PUBLIER LE COMBINÉ</button>
+  </div>
+</div>
+</div>
+}
+
+<main class="main-content">
+
+  @if (view === 'pronos') {
+  <div class="cards-list">
+    @if (filteredActive.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <div>Aucun pronostic en cours pour le moment.</div>
+      @if (isAdmin) { <div class="empty-hint">Clique sur "+ Prono" ou "+ Combiné" pour publier.</div> }
+    </div>
+    }
+    @for (p of filteredActive; track p.id; let i = $index) {
+    @if (canSeeProno(p)) {
+    <div class="prono-card" [class]="p.is_combi ? 'card-pending card-combi' : 'card-pending'"
+      [style.animation-delay]="i * 60 + 'ms'">
+      <div class="card-top">
+        <div class="card-cote">{{ p.cote | number:'1.2-2' }}</div>
+        <div class="card-badges">
+          @if (p.is_combi) { <span class="badge badge-combi">🔗 COMBINÉ</span> }
+          <span class="badge badge-pending">⏳ EN COURS</span>
+          @if (p.tipster === 'SAFE') { <span class="badge badge-safe">SAFE</span> }
+          @if (p.tipster === 'VALUE') { <span class="badge badge-value">VALUE</span> }
+          @if (p.tipster === 'RISK') { <span class="badge badge-risk">RISK</span> }
+        </div>
+        @if (isAdmin) {
+        <div class="admin-actions">
+          <button class="btn-act" title="Gagné" (click)="updateResult(p,'win');  $event.stopPropagation()">✅</button>
+          <button class="btn-act" title="Perdu" (click)="updateResult(p,'loss'); $event.stopPropagation()">❌</button>
+          <button class="btn-act" title="Supprimer"
+            (click)="deleteProno(p.id);      $event.stopPropagation()">🗑️</button>
+        </div>
+        }
+      </div>
+      <div class="card-divider"></div>
+      @if (p.is_combi && p.legs) {
+      @for (leg of p.legs; track $index; let li = $index) {
+      <div class="match-item">
+        <div class="sport-ico">{{ sportIcons[leg.sport] }}</div>
+        <div class="match-details">
+          <div class="match-name">{{ leg.match }}</div>
+          <div class="match-tip">{{ leg.tip }}</div>
+          <div class="match-meta"><span>{{ leg.cote | number:'1.2-2' }}</span><span class="dot">·</span><span>{{
+              leg.comp }}</span></div>
+        </div>
+      </div>
+      }
+      } @else {
+      <div class="match-item">
+        <div class="sport-ico">{{ sportIcons[p.sport] }}</div>
+        <div class="match-details">
+          <div class="match-name">{{ p.match_name }}</div>
+          <div class="match-tip">{{ p.tip }}</div>
+          <div class="match-meta"><span>{{ p.cote | number:'1.2-2' }}</span><span class="dot">·</span><span>{{ p.comp
+              }}</span>
+            <div class="result-dot dot-pending"></div>
+          </div>
+        </div>
+      </div>
+      }
+      @if (p.analysis) { <div class="card-analyse">{{ p.analysis }}</div> }
+    </div>
+    } @else {
+    <div class="prono-card card-locked" (click)="goPricing()">
+      <div class="card-top">
+        <div class="card-cote">—</div>
+        <div class="card-badges"><span class="badge badge-locked">🔒 VIP uniquement</span></div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="match-item">
+        <div class="sport-ico">{{ sportIcons[p.sport] }}</div>
+        <div class="match-details">
+          <div class="match-name">{{ p.match_name }}</div>
+          <div class="match-tip locked-tip">Contenu réservé aux membres VIP</div>
+        </div>
+      </div>
+    </div>
+    }
+    }
+  </div>
+  }
+
+  @if (view === 'historique') {
+  <div class="histo-stats-row">
+    <div class="histo-stat hs-win">
+      <div class="histo-val">{{ wonPronos.length }}</div>
+      <div class="histo-lbl">Gagnés</div>
+    </div>
+    <div class="histo-stat hs-loss">
+      <div class="histo-val">{{ lostPronos.length }}</div>
+      <div class="histo-lbl">Perdus</div>
+    </div>
+    <div class="histo-stat hs-rate">
+      <div class="histo-val">{{ winRate }}%</div>
+      <div class="histo-lbl">Win rate</div>
+    </div>
+  </div>
+  <div class="cards-list">
+    @if (filteredFinished.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📊</div>
+      <div>Aucun résultat dans l'historique.</div>
+    </div>
+    }
+    @for (p of filteredFinished; track p.id; let i = $index) {
+    <div class="prono-card" [class]="p.result === 'win' ? 'card-win' : 'card-loss'"
+      [style.animation-delay]="i * 40 + 'ms'">
+      <div class="card-top">
+        <div class="card-cote">{{ p.cote | number:'1.2-2' }}</div>
+        <div class="card-badges">
+          @if (p.is_combi) { <span class="badge badge-combi">🔗 COMBINÉ</span> }
+          @if (p.result === 'win') { <span class="badge badge-win">✓ GAGNÉ</span> }
+          @else { <span class="badge badge-loss">✗ PERDU</span> }
+          @if (p.tipster === 'SAFE') { <span class="badge badge-safe">SAFE</span> }
+          @if (p.tipster === 'VALUE') { <span class="badge badge-value">VALUE</span> }
+          @if (p.tipster === 'RISK') { <span class="badge badge-risk">RISK</span> }
+        </div>
+        @if (isAdmin) {
+        <div class="admin-actions">
+          <button class="btn-act" (click)="updateResult(p,'pending'); $event.stopPropagation()">🔄</button>
+          <button class="btn-act" (click)="deleteProno(p.id);         $event.stopPropagation()">🗑️</button>
+        </div>
+        }
+      </div>
+      <div class="card-divider"></div>
+      @if (p.is_combi && p.legs) {
+      @for (leg of p.legs; track $index) {
+      <div class="match-item">
+        <div class="sport-ico">{{ sportIcons[leg.sport] }}</div>
+        <div class="match-details">
+          <div class="match-name">{{ leg.match }}</div>
+          <div class="match-tip">{{ leg.tip }}</div>
+          <div class="match-meta"><span>{{ leg.cote | number:'1.2-2' }}</span><span class="dot">·</span><span>{{
+              leg.comp }}</span></div>
+        </div>
+      </div>
+      }
+      } @else {
+      <div class="match-item">
+        <div class="sport-ico">{{ sportIcons[p.sport] }}</div>
+        <div class="match-details">
+          <div class="match-name">{{ p.match_name }}</div>
+          <div class="match-tip">{{ p.tip }}</div>
+          <div class="match-meta">
+            <span>{{ p.cote | number:'1.2-2' }}</span><span class="dot">·</span><span>{{ p.comp }}</span>
+            @if (p.result === 'win') { <div class="result-dot dot-win">✓</div> }
+            @else { <div class="result-dot dot-loss">✗</div> }
+          </div>
+        </div>
+      </div>
+      }
+      @if (p.analysis) { <div class="card-analyse">{{ p.analysis }}</div> }
+    </div>
+    }
+  </div>
+  }
+
+</main>
+
+<footer><span>JTMaster</span> — Les paris comportent des risques. Jouez de manière responsable.</footer>
+
+@if (showToast) { <div class="toast">✓ Publié avec succès !</div> }

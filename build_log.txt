@@ -1,0 +1,39 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+[35mBrowser bundles[39m     
+[1mInitial chunk files[22m [2m | [22m[1mNames[22m           [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mmain-7WPNLX47.js[39m    [2m | [22m[2mmain[22m            [2m | [22m[36m511.03 kB[39m[2m | [22m              [36m127.83 kB[39m
+[32mstyles-VVK3OQIV.css[39m [2m | [22m[2mstyles[22m          [2m | [22m  [36m3.98 kB[39m[2m | [22m              [36m541 bytes[39m
+
+[1m [22m                   [2m | [22m[1mInitial total[22m   [2m | [22m[1m[93m515.00 kB[39m[22m[2m | [22m              [1m128.37 kB[22m
+
+
+[35mServer bundles[39m      
+[1mInitial chunk files[22m [2m | [22m[1mNames[22m           [2m | [22m [1mRaw size[22m
+[32mmain.server.mjs[39m     [2m | [22m[2mmain.server[22m     [2m | [22m[36m934.90 kB[39m[2m | [22m                       
+[32mserver.mjs[39m          [2m | [22m[2mserver[22m          [2m | [22m[36m811.09 kB[39m[2m | [22m                       
+[32mpolyfills.server.mjs[39m[2m | [22m[2mpolyfills.server[22m[2m | [22m[36m233.73 kB[39m[2m | [22m                       
+[32mchunk-BBJ2OP3G.mjs[39m  [2m | [22m[2m-[22m               [2m | [22m  [36m1.34 kB[39m[2m | [22m                       
+[32mchunk-T55IDOPT.mjs[39m  [2m | [22m[2m-[22m               [2m | [22m[36m976 bytes[39m[2m | [22m                       
+
+[1mLazy chunk files[22m    [2m | [22m[1mNames[22m           [2m | [22m [1mRaw size[22m
+[32mchunk-BP7AI3FB.mjs[39m  [2m | [22m[2mxhr2[22m            [2m | [22m [36m12.17 kB[39m[2m | [22m                       
+[32mchunk-N3SI5I4Q.mjs[39m  [2m | [22m[2mxhr2[22m            [2m | [22m [36m12.07 kB[39m[2m | [22m                       
+
+[35mPrerendered 0 static routes.[39m
+Application bundle generation failed. [4.435 seconds] - 2026-03-26T19:02:22.042Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mbundle initial exceeded maximum budget. Budget 500.00 kB was not met by 15.01 kB with a total of 515.00 kB.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1msrc/app/app.css exceeded maximum budget. Budget 4.00 kB was not met by 7.20 kB with a total of 11.20 kB.[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1msrc/app/app.css exceeded maximum budget. Budget 8.00 kB was not met by 3.19 kB with a total of 11.20 kB.[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mAn error occurred while extracting routes.
+
+NG0908[0m
+
+[39m[22m

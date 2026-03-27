@@ -1,0 +1,119 @@
+<div class="login-page">
+
+    <div class="login-left">
+        <div class="login-logo">JT<span>Master</span></div>
+        <div class="login-tagline">Pronostics sportifs · Accès exclusif</div>
+
+        <div class="login-tabs">
+            <button class="tab" [class.active]="mode==='login'" (click)="setMode('login')">Se connecter</button>
+            <button class="tab" [class.active]="mode==='register'" (click)="setMode('register')">S'inscrire</button>
+        </div>
+
+        @if (error) { <div class="alert alert-error">{{ error }}</div> }
+        @if (success) { <div class="alert alert-success">{{ success }}</div> }
+
+        <div class="form-group">
+            <label>Adresse email</label>
+            <input type="email" [(ngModel)]="email" placeholder="exemple@email.com" (keyup.enter)="submit()">
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password" [(ngModel)]="password" placeholder="••••••••" (keyup.enter)="submit()">
+        </div>
+        @if (mode === 'register') {
+        <div class="form-group">
+            <label>Confirmer le mot de passe</label>
+            <input type="password" [(ngModel)]="confirm" placeholder="••••••••" (keyup.enter)="submit()">
+        </div>
+        }
+
+        <button class="submit-btn" (click)="submit()" [disabled]="loading">
+            @if (loading) { <span class="spinner"></span> }
+            {{ loading ? 'Chargement...' : (mode === 'login' ? 'SE CONNECTER' : "S'INSCRIRE") }}
+        </button>
+
+        <div class="toggle-mode">
+            {{ mode === 'login' ? 'Pas de compte ?' : 'Déjà inscrit ?' }}
+            <a (click)="setMode(mode === 'login' ? 'register' : 'login')">
+                {{ mode === 'login' ? "Créer un compte" : 'Se connecter' }}
+            </a>
+        </div>
+
+        @if (selectedPlan) {
+        <div class="selected-plan-info">
+            Plan sélectionné : <span>{{ selectedPlan }}</span> — L'accès sera activé par l'admin après paiement.
+        </div>
+        }
+    </div>
+
+    <div class="login-right">
+        <div class="plans-eyebrow">Abonnements</div>
+        <div class="plans-title">ACCÈS <em>VIP</em></div>
+        <div class="plans-sub">Pronostics du jour · Débriefs complets · Analyses exclusives</div>
+
+        <div class="plans-grid">
+
+            <div class="plan-card" [class.plan-selected]="selectedPlan === 'Hebdomadaire'"
+                (click)="selectPlan('Hebdomadaire')">
+                <div class="plan-select-ring"></div>
+                <div class="plan-period">Hebdomadaire</div>
+                <div class="plan-price-row">
+                    <span class="plan-amount">10€</span>
+                    <span class="plan-freq">/ semaine</span>
+                </div>
+                <div class="plan-desc">Idéal pour tester sur une courte période.</div>
+                <div class="plan-feats">
+                    <div class="feat">Pronos du jour</div>
+                    <div class="feat">Débriefs & analyses</div>
+                    <div class="feat">Badge VIP</div>
+                </div>
+                <div class="plan-select-btn">{{ selectedPlan === 'Hebdomadaire' ? '✓ Sélectionné' : 'Choisir' }}</div>
+            </div>
+
+            <div class="plan-card plan-featured" [class.plan-selected]="selectedPlan === 'Mensuel'"
+                (click)="selectPlan('Mensuel')">
+                <div class="plan-badge">LE PLUS POPULAIRE</div>
+                <div class="plan-select-ring"></div>
+                <div class="plan-period">Mensuel</div>
+                <div class="plan-price-row">
+                    <span class="plan-amount">25€</span>
+                    <span class="plan-freq">/ mois</span>
+                </div>
+                <div class="plan-desc">Le meilleur rapport qualité / prix.</div>
+                <div class="plan-feats">
+                    <div class="feat">Pronos du jour</div>
+                    <div class="feat">Débriefs & analyses</div>
+                    <div class="feat">Badge VIP</div>
+                    <div class="feat">Accès prioritaire</div>
+                </div>
+                <div class="plan-select-btn">{{ selectedPlan === 'Mensuel' ? '✓ Sélectionné' : 'Choisir' }}</div>
+            </div>
+
+            <div class="plan-card plan-annual" [class.plan-selected]="selectedPlan === 'Annuel'"
+                (click)="selectPlan('Annuel')">
+                <div class="plan-badge-annual">MEILLEUR PRIX</div>
+                <div class="plan-select-ring"></div>
+                <div class="plan-period">Annuel</div>
+                <div class="plan-price-row">
+                    <span class="plan-amount">200€</span>
+                    <span class="plan-freq">/ an</span>
+                </div>
+                <div class="plan-saving">Économise 100€ vs mensuel</div>
+                <div class="plan-feats">
+                    <div class="feat">Tout le plan Mensuel</div>
+                    <div class="feat">12 mois garanti</div>
+                    <div class="feat">Support prioritaire</div>
+                    <div class="feat">Nouveautés en avant-première</div>
+                </div>
+                <div class="plan-select-btn">{{ selectedPlan === 'Annuel' ? '✓ Sélectionné' : 'Choisir' }}</div>
+            </div>
+
+        </div>
+
+        <div class="plans-note">
+            Clique sur un plan pour le sélectionner.<br>
+            L'accès est activé par <span>l'admin</span> après confirmation du paiement.
+        </div>
+    </div>
+
+</div>
